@@ -31,11 +31,6 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# Benchmark data and plots
-benchmark_results.csv
-benchmark_results.png
-efficiency_analysis.png
-
 # Project-specific folders
 proto/
 
