@@ -1,0 +1,45 @@
+# Build artifacts
+*.o
+*.out
+*.obj
+*.exe
+*.log
+*.a
+*.so
+*.dll
+*.dSYM/
+CMakeFiles/
+Makefile
+CMakeCache.txt
+
+# Compiled binaries
+benchmark
+
+# IDE and editor settings
+.vscode/
+.idea/
+*.swp
+*~
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Benchmark data and plots
+benchmark_results.csv
+benchmark_results.png
+efficiency_analysis.png
+
+# Project-specific folders
+proto/
+
+# Backup files
+*.bak
+*.tmp
+
