@@ -1,5 +1,7 @@
 # False Sharing Benchmark
 
+Inspired by Scott Meyers' talk: [CPU Caches and Why You Care](https://www.youtube.com/watch?v=WDIkqP4JbkE)
+
 This project demonstrates the performance impact of false sharing in multithreaded applications. It includes a benchmark that compares two implementations of a matrix processing algorithm:
 
 1. **With False Sharing (Take 1)**: Each thread directly updates a shared atomic counter, causing cache line invalidation.
