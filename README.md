@@ -154,13 +154,13 @@ make clean && make plot
 The benchmark runs both implementations with varying thread counts and measures the execution time in microseconds. The results are written to a CSV file `benchmark_results.csv` and visualized using the Python script, which creates two charts:
 
 1. **Performance Comparison Chart** (`benchmark_results.png`):
-   - ![Performance Chart](data/benchmark_results.png)
+   - ![Performance Chart](chart/benchmark_results.png)
    - Shows execution times for both implementations
    - Displays the speedup ratio (Take1/Take2)
    - Highlights optimal thread counts for each implementation
 
 2. **Efficiency Analysis Chart** (`efficiency_analysis.png`):
-   - ![Efficiency Chart](data/efficiency_analysis.png)
+   - ![Efficiency Chart](chart/efficiency_analysis.png)
    - Shows how efficiently each implementation scales with additional threads
    - Compares against ideal linear scaling (100% efficiency)
 
