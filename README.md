@@ -176,5 +176,5 @@ This shows that even if each thread writes to its own variable, performance can 
 
 - The benchmark uses a fixed random seed for reproducibility
 - All time measurements are in microseconds for higher precision
-- The matrix size is defined in `benchmark.h` as 1000 x 1000 and can be adjusted for longer or shorter runs
+- The matrix size is defined in `benchmark.h` as 10000 x 10000 and can be adjusted for longer or shorter runs
 
