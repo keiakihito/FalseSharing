@@ -9,6 +9,33 @@ This project demonstrates the performance impact of false sharing in multithread
 
 ## What is False Sharing?
 
+False sharing occurs when multiple threads access different variables that happen to reside in the same CPU cache line. Even though the threads logically touch different variables, the hardware sees them as sharing the same cache line. This triggers costly invalidations and reloads across cores.
+
+### How Cache Coherency Works (Simplified)
+
+Initially:
+```
+Core 0 - Cache Line #1 [Valid]
+Core 1 - Cache Line #1 [Valid]
+```
+
+When Core 0 modifies `result_take1[0]`, it marks its own Cache Line #1 as **Modified**.
+As a result, Core 1's copy of Cache Line #1 becomes **Invalid** automatically.
+
+Now, when Core 1 tries to write to `result_take1[1]`, it finds its cache line invalid. It must fetch the latest version either:
+- From Core 0 directly (Cache-to-Cache Transfer), or
+- From main memory (much slower)
+
+This invalidation and data traffic repeat every time, causing a performance disaster in multithreaded programs.
+
+### Visualization:
+```
+| result_take1[0] | result_take1[1] | result_take1[2] | result_take1[3] |
+(Variables packed into the same cache line)
+```
+
+Thus, even different variables interfere simply because they are "physically" adjacent in memory!
+
 False sharing occurs when multiple threads access different variables that happen to reside in the same cache line. Even though the threads are logically accessing different memory locations, the hardware considers them as shared due to their physical proximity in memory. This leads to excessive cache coherency traffic, where each thread repeatedly invalidates others' cached data.
 
 This can cause performance to degrade as more threads are added, instead of improving due to parallelism.
@@ -127,13 +154,13 @@ make clean && make plot
 The benchmark runs both implementations with varying thread counts and measures the execution time in microseconds. The results are written to a CSV file `benchmark_results.csv` and visualized using the Python script, which creates two charts:
 
 1. **Performance Comparison Chart** (`benchmark_results.png`):
-   - ![Performance Chart](chart/benchmark_results.png)
+   - ![Performance Chart](data/benchmark_results.png)
    - Shows execution times for both implementations
    - Displays the speedup ratio (Take1/Take2)
    - Highlights optimal thread counts for each implementation
 
 2. **Efficiency Analysis Chart** (`efficiency_analysis.png`):
-   - ![Efficiency Chart](chart/efficiency_analysis.png)
+   - ![Efficiency Chart](data/efficiency_analysis.png)
    - Shows how efficiently each implementation scales with additional threads
    - Compares against ideal linear scaling (100% efficiency)
 
@@ -149,5 +176,5 @@ This shows that even if each thread writes to its own variable, performance can 
 
 - The benchmark uses a fixed random seed for reproducibility
 - All time measurements are in microseconds for higher precision
-- The matrix size is defined in `benchmark.h` as 10000 x 10000 and can be adjusted for longer or shorter runs
+- The matrix size is defined in `benchmark.h` as 1000 x 1000 and can be adjusted for longer or shorter runs
 
